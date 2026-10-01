@@ -19,7 +19,9 @@ import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as VaquinhasRouteImport } from './routes/vaquinhas'
+import { Route as AuthenticatedMeusPetsRouteImport } from './routes/_authenticated/meus-pets'
 import { Route as AuthenticatedNotificacoesRouteImport } from './routes/_authenticated/notificacoes'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
 import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 
@@ -72,12 +74,22 @@ const VaquinhasRoute = VaquinhasRouteImport.update({
   path: '/vaquinhas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMeusPetsRoute = AuthenticatedMeusPetsRouteImport.update({
+  id: '/meus-pets',
+  path: '/meus-pets',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedNotificacoesRoute =
   AuthenticatedNotificacoesRouteImport.update({
     id: '/notificacoes',
     path: '/notificacoes',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -99,7 +111,9 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
 }
@@ -113,7 +127,9 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/chats/$id': typeof AuthenticatedChatsIdRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
 }
@@ -129,7 +145,9 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/_authenticated/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/_authenticated/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
 }
@@ -145,7 +163,9 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/meus-pets'
     | '/notificacoes'
+    | '/perfil'
     | '/chats/$id'
     | '/chats/'
   fileRoutesByTo: FileRoutesByTo
@@ -159,7 +179,9 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/meus-pets'
     | '/notificacoes'
+    | '/perfil'
     | '/chats/$id'
     | '/chats'
   id:
@@ -174,7 +196,9 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/_authenticated/meus-pets'
     | '/_authenticated/notificacoes'
+    | '/_authenticated/perfil'
     | '/_authenticated/chats/$id'
     | '/_authenticated/chats/'
   fileRoutesById: FileRoutesById
@@ -264,11 +288,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaquinhasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/meus-pets': {
+      id: '/_authenticated/meus-pets'
+      path: '/meus-pets'
+      fullPath: '/meus-pets'
+      preLoaderRoute: typeof AuthenticatedMeusPetsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/notificacoes': {
       id: '/_authenticated/notificacoes'
       path: '/notificacoes'
       fullPath: '/notificacoes'
       preLoaderRoute: typeof AuthenticatedNotificacoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/chats/': {
@@ -289,13 +327,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMeusPetsRoute: typeof AuthenticatedMeusPetsRoute
   AuthenticatedNotificacoesRoute: typeof AuthenticatedNotificacoesRoute
+  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedChatsIdRoute: typeof AuthenticatedChatsIdRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMeusPetsRoute: AuthenticatedMeusPetsRoute,
   AuthenticatedNotificacoesRoute: AuthenticatedNotificacoesRoute,
+  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedChatsIdRoute: AuthenticatedChatsIdRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
 }

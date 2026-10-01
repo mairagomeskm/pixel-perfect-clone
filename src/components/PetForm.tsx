@@ -7,7 +7,7 @@ import { uploadMedia } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field } from "@/components/AuthForms";
-import { REGIONS } from "@/routes/adocao";
+import { REGIONS } from "@/lib/regions";
 
 const EMPTY = { name: "", species: "cao", age_label: "", is_puppy: false, region: "Plano Piloto", description: "", organization_id: "" };
 

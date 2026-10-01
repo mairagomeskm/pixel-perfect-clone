@@ -19,7 +19,7 @@ export const Route = createFileRoute("/adocao")({
   component: AdocaoPage,
 });
 
-export const REGIONS = ["Todas", "Plano Piloto", "Asa Norte", "Asa Sul", "Cruzeiro", "Sudoeste", "Taguatinga", "Ceilândia", "Gama", "Guará", "Samambaia", "Sobradinho", "Planaltina", "Águas Claras", "Entorno"];
+import { REGIONS } from "@/lib/regions";
 
 function AdocaoPage() {
   const [filter, setFilter] = useState<"todos" | "filhotes" | "gato" | "cao">("todos");
