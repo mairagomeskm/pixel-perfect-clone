@@ -1,0 +1,1 @@
+export const REGIONS = ["Todas", "Plano Piloto", "Asa Norte", "Asa Sul", "Cruzeiro", "Sudoeste", "Taguatinga", "Ceilândia", "Gama", "Guará", "Samambaia", "Sobradinho", "Planaltina", "Águas Claras", "Entorno"];
