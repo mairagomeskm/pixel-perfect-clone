@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { AuthForms } from "@/components/AuthForms";
 import { DRAFT_LABELS, clearDraft } from "@/lib/drafts";
-import logoAsset from "@/assets/logo-caritas.jpeg.asset.json";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -51,9 +50,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               <ArrowLeft className="h-6 w-6" strokeWidth={1.5} />
             </button>
           )}
-          <Link to="/" className="flex items-center gap-2 text-2xl font-bold italic tracking-tight text-primary">
-            <img src={logoAsset.url} alt="Logo Carita's Pets" className="h-12 w-12 rounded-full object-cover" />
-            <span className="hidden sm:inline">Carita's Pets</span>
+          <Link to="/" className="text-2xl font-bold italic tracking-tight text-primary">
+            Carita's Pets
           </Link>
           <nav className="ml-6 hidden gap-5 md:flex">
             <NavLinks />
