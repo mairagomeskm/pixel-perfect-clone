@@ -19,6 +19,7 @@ import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as VaquinhasRouteImport } from './routes/vaquinhas'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMeusPetsRouteImport } from './routes/_authenticated/meus-pets'
 import { Route as AuthenticatedNotificacoesRouteImport } from './routes/_authenticated/notificacoes'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
@@ -74,6 +75,11 @@ const VaquinhasRoute = VaquinhasRouteImport.update({
   path: '/vaquinhas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMeusPetsRoute = AuthenticatedMeusPetsRouteImport.update({
   id: '/meus-pets',
   path: '/meus-pets',
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/perfil': typeof AuthenticatedPerfilRoute
@@ -127,6 +134,7 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/perfil': typeof AuthenticatedPerfilRoute
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/meus-pets': typeof AuthenticatedMeusPetsRoute
   '/_authenticated/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/admin'
     | '/meus-pets'
     | '/notificacoes'
     | '/perfil'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/admin'
     | '/meus-pets'
     | '/notificacoes'
     | '/perfil'
@@ -196,6 +207,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
+    | '/_authenticated/admin'
     | '/_authenticated/meus-pets'
     | '/_authenticated/notificacoes'
     | '/_authenticated/perfil'
@@ -288,6 +300,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaquinhasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/meus-pets': {
       id: '/_authenticated/meus-pets'
       path: '/meus-pets'
@@ -327,6 +346,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedMeusPetsRoute: typeof AuthenticatedMeusPetsRoute
   AuthenticatedNotificacoesRoute: typeof AuthenticatedNotificacoesRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
@@ -335,6 +355,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedMeusPetsRoute: AuthenticatedMeusPetsRoute,
   AuthenticatedNotificacoesRoute: AuthenticatedNotificacoesRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
