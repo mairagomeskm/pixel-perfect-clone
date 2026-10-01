@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdocaoRouteImport } from './routes/adocao'
+import { Route as DesaparecidosRouteImport } from './routes/desaparecidos'
+import { Route as VaquinhasRouteImport } from './routes/vaquinhas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdocaoRoute = AdocaoRouteImport.update({
+  id: '/adocao',
+  path: '/adocao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesaparecidosRoute = DesaparecidosRouteImport.update({
+  id: '/desaparecidos',
+  path: '/desaparecidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VaquinhasRoute = VaquinhasRouteImport.update({
+  id: '/vaquinhas',
+  path: '/vaquinhas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/adocao': typeof AdocaoRoute
+  '/desaparecidos': typeof DesaparecidosRoute
+  '/vaquinhas': typeof VaquinhasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/adocao': typeof AdocaoRoute
+  '/desaparecidos': typeof DesaparecidosRoute
+  '/vaquinhas': typeof VaquinhasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/adocao': typeof AdocaoRoute
+  '/desaparecidos': typeof DesaparecidosRoute
+  '/vaquinhas': typeof VaquinhasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
+  id: '__root__' | '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdocaoRoute: typeof AdocaoRoute
+  DesaparecidosRoute: typeof DesaparecidosRoute
+  VaquinhasRoute: typeof VaquinhasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/adocao': {
+      id: '/adocao'
+      path: '/adocao'
+      fullPath: '/adocao'
+      preLoaderRoute: typeof AdocaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desaparecidos': {
+      id: '/desaparecidos'
+      path: '/desaparecidos'
+      fullPath: '/desaparecidos'
+      preLoaderRoute: typeof DesaparecidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vaquinhas': {
+      id: '/vaquinhas'
+      path: '/vaquinhas'
+      fullPath: '/vaquinhas'
+      preLoaderRoute: typeof VaquinhasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdocaoRoute: AdocaoRoute,
+  DesaparecidosRoute: DesaparecidosRoute,
+  VaquinhasRoute: VaquinhasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
