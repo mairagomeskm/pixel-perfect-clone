@@ -44,7 +44,7 @@ function AjudaPage() {
           ["Preciso enviar comprovante?", "Sim. Envie em Editar Meu Perfil junto com o censo de adoção."],
           ["Como funcionam as vaquinhas?", "Cada campanha tem uma chave PIX própria. O valor vai direto para o responsável pelo pet."],
           ["Atendem fora do DF?", "Atendemos o DF e o entorno."],
-        ].map(([q, a]) => (
+        ] as [string, string][]).map(([q, a]) => (
           <AccordionItem key={q} value={q}>
             <AccordionTrigger>{q}</AccordionTrigger>
             <AccordionContent>{a}</AccordionContent>

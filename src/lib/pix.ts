@@ -11,7 +11,7 @@ function crc16(p: string) {
 }
 
 /** Gera o código PIX "copia e cola" (BR Code estático). */
-export function pixPayload(o: { key: string; name: string; city?: string; amount?: number; txid?: string }) {
+export function pixPayload(o: { key: string; name: string; city?: string; amount?: number | undefined; txid?: string }) {
   const gui = f("00", "br.gov.bcb.pix") + f("01", o.key.trim());
   let p =
     f("00", "01") +

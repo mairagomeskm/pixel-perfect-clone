@@ -18,7 +18,7 @@ export async function uploadMedia(userId: string, file: File) {
 export async function uploadChatFile(conversationId: string, file: File | Blob, fallbackExt: string) {
   const path = `${conversationId}/${crypto.randomUUID()}.${ext(file, fallbackExt)}`;
   const { error } = await supabase.storage.from("chat-attachments").upload(path, file, {
-    contentType: file.type || undefined,
+    ...(file.type ? { contentType: file.type } : {}),
   });
   if (error) throw error;
   return path;
