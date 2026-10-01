@@ -10,13 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AdocaoRouteImport } from './routes/adocao'
+import { Route as AjudaRouteImport } from './routes/ajuda'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DesaparecidosRouteImport } from './routes/desaparecidos'
+import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as VaquinhasRouteImport } from './routes/vaquinhas'
+import { Route as AuthenticatedNotificacoesRouteImport } from './routes/_authenticated/notificacoes'
+import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats.index'
+import { Route as AuthenticatedChatsIdRouteImport } from './routes/_authenticated/chats.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdocaoRoute = AdocaoRouteImport.update({
@@ -24,9 +37,34 @@ const AdocaoRoute = AdocaoRouteImport.update({
   path: '/adocao',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AjudaRoute = AjudaRouteImport.update({
+  id: '/ajuda',
+  path: '/ajuda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DesaparecidosRoute = DesaparecidosRouteImport.update({
   id: '/desaparecidos',
   path: '/desaparecidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiarioRoute = DiarioRouteImport.update({
+  id: '/diario',
+  path: '/diario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VaquinhasRoute = VaquinhasRouteImport.update({
@@ -34,38 +72,123 @@ const VaquinhasRoute = VaquinhasRouteImport.update({
   path: '/vaquinhas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedNotificacoesRoute =
+  AuthenticatedNotificacoesRouteImport.update({
+    id: '/notificacoes',
+    path: '/notificacoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
+  id: '/chats/',
+  path: '/chats/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatsIdRoute = AuthenticatedChatsIdRouteImport.update({
+  id: '/chats/$id',
+  path: '/chats/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/adocao': typeof AdocaoRoute
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
   '/desaparecidos': typeof DesaparecidosRoute
+  '/diario': typeof DiarioRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/adocao': typeof AdocaoRoute
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
   '/desaparecidos': typeof DesaparecidosRoute
+  '/diario': typeof DiarioRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/chats': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/adocao': typeof AdocaoRoute
+  '/ajuda': typeof AjudaRoute
+  '/auth': typeof AuthRoute
   '/desaparecidos': typeof DesaparecidosRoute
+  '/diario': typeof DiarioRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
+  '/_authenticated/notificacoes': typeof AuthenticatedNotificacoesRoute
+  '/_authenticated/chats/$id': typeof AuthenticatedChatsIdRoute
+  '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
+  fullPaths:
+    | '/'
+    | '/adocao'
+    | '/ajuda'
+    | '/auth'
+    | '/desaparecidos'
+    | '/diario'
+    | '/privacidade'
+    | '/reset-password'
+    | '/vaquinhas'
+    | '/notificacoes'
+    | '/chats/$id'
+    | '/chats/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
-  id: '__root__' | '/' | '/adocao' | '/desaparecidos' | '/vaquinhas'
+  to:
+    | '/'
+    | '/adocao'
+    | '/ajuda'
+    | '/auth'
+    | '/desaparecidos'
+    | '/diario'
+    | '/privacidade'
+    | '/reset-password'
+    | '/vaquinhas'
+    | '/notificacoes'
+    | '/chats/$id'
+    | '/chats'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/adocao'
+    | '/ajuda'
+    | '/auth'
+    | '/desaparecidos'
+    | '/diario'
+    | '/privacidade'
+    | '/reset-password'
+    | '/vaquinhas'
+    | '/_authenticated/notificacoes'
+    | '/_authenticated/chats/$id'
+    | '/_authenticated/chats/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AdocaoRoute: typeof AdocaoRoute
+  AjudaRoute: typeof AjudaRoute
+  AuthRoute: typeof AuthRoute
   DesaparecidosRoute: typeof DesaparecidosRoute
+  DiarioRoute: typeof DiarioRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   VaquinhasRoute: typeof VaquinhasRoute
 }
 
@@ -78,11 +201,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/adocao': {
       id: '/adocao'
       path: '/adocao'
       fullPath: '/adocao'
       preLoaderRoute: typeof AdocaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ajuda': {
+      id: '/ajuda'
+      path: '/ajuda'
+      fullPath: '/ajuda'
+      preLoaderRoute: typeof AjudaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/desaparecidos': {
@@ -92,6 +236,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesaparecidosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/diario': {
+      id: '/diario'
+      path: '/diario'
+      fullPath: '/diario'
+      preLoaderRoute: typeof DiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vaquinhas': {
       id: '/vaquinhas'
       path: '/vaquinhas'
@@ -99,13 +264,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VaquinhasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/notificacoes': {
+      id: '/_authenticated/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/notificacoes'
+      preLoaderRoute: typeof AuthenticatedNotificacoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chats/': {
+      id: '/_authenticated/chats/'
+      path: '/chats'
+      fullPath: '/chats/'
+      preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chats/$id': {
+      id: '/_authenticated/chats/$id'
+      path: '/chats/$id'
+      fullPath: '/chats/$id'
+      preLoaderRoute: typeof AuthenticatedChatsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedNotificacoesRoute: typeof AuthenticatedNotificacoesRoute
+  AuthenticatedChatsIdRoute: typeof AuthenticatedChatsIdRoute
+  AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedNotificacoesRoute: AuthenticatedNotificacoesRoute,
+  AuthenticatedChatsIdRoute: AuthenticatedChatsIdRoute,
+  AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AdocaoRoute: AdocaoRoute,
+  AjudaRoute: AjudaRoute,
+  AuthRoute: AuthRoute,
   DesaparecidosRoute: DesaparecidosRoute,
+  DiarioRoute: DiarioRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   VaquinhasRoute: VaquinhasRoute,
 }
 export const routeTree = rootRouteImport
