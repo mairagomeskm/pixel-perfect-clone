@@ -39,7 +39,7 @@ function AjudaPage() {
         </Button>
       </div>
       <Accordion type="single" collapsible className="vintage-card px-6">
-        {[
+        {([
           ["Como adoto um pet?", "Na aba Adoção, clique em “Tenho Interesse”. Um chat abre com o protetor e algumas perguntas rápidas."],
           ["Preciso enviar comprovante?", "Sim. Envie em Editar Meu Perfil junto com o censo de adoção."],
           ["Como funcionam as vaquinhas?", "Cada campanha tem uma chave PIX própria. O valor vai direto para o responsável pelo pet."],

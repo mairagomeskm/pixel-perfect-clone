@@ -98,11 +98,11 @@ function DiarioPage() {
         {groups.length === 0 && <p className="italic text-muted-foreground">Ainda não há stories. Seja o primeiro a postar!</p>}
         {groups.map((g) => {
           const unseen = g.some((p) => !seen.includes(p.id));
-          const pet = g[0].pets;
+          const first = g[0]!; const pet = first.pets;
           return (
-            <button key={g[0].pet_id} onClick={() => setViewer({ posts: g, i: 0 })} className="flex shrink-0 flex-col items-center gap-1">
+            <button key={first.pet_id} onClick={() => setViewer({ posts: g, i: 0 })} className="flex shrink-0 flex-col items-center gap-1">
               <span className={`rounded-full p-[3px] ${unseen ? "bg-secondary" : "bg-border"}`}>
-                <img src={pet?.photo_url ?? g[0].media_url} alt={pet?.name ?? ""} className="h-20 w-20 rounded-full border-4 border-card object-cover" />
+                <img src={pet?.photo_url ?? first.media_url} alt={pet?.name ?? ""} className="h-20 w-20 rounded-full border-4 border-card object-cover" />
               </span>
               <span className="text-sm">{pet?.name}</span>
             </button>
