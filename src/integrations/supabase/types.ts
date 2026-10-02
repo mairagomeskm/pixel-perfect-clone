@@ -339,6 +339,7 @@ export type Database = {
       profiles: {
         Row: {
           address: string | null
+          avatar_url: string | null
           census: Json
           cep: string | null
           cnpj: string | null
@@ -355,6 +356,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          avatar_url?: string | null
           census?: Json
           cep?: string | null
           cnpj?: string | null
@@ -371,6 +373,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          avatar_url?: string | null
           census?: Json
           cep?: string | null
           cnpj?: string | null

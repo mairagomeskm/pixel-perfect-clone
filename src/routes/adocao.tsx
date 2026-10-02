@@ -1,4 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -26,9 +28,11 @@ function AdocaoPage() {
   const [region, setRegion] = useState("Todas");
   const { user, setAuthOpen } = useAuth();
   const navigate = useNavigate();
+  const [blocked, setBlocked] = useState(false);
 
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets", "disponivel"],
+    enabled: !!user,
     queryFn: async () => {
       const { data, error } = await supabase.from("pets").select("*").eq("status", "disponivel").order("created_at", { ascending: false });
       if (error) throw error;
@@ -43,10 +47,9 @@ function AdocaoPage() {
   );
 
   const interest = async (id: string, name: string) => {
-    if (!user) {
-      toast("Entre ou cadastre-se para conversar com o protetor.");
-      return setAuthOpen(true);
-    }
+    if (!user) return setAuthOpen(true);
+    const { data: prof } = await supabase.from("profiles").select("avatar_url, proof_path").eq("id", user.id).single();
+    if (!prof?.avatar_url || !prof?.proof_path) return setBlocked(true);
     try {
       const cid = await openPetChat(user.id, id, name);
       navigate({ to: "/chats/$id", params: { id: cid } });
@@ -55,8 +58,26 @@ function AdocaoPage() {
     }
   };
 
+  if (!user)
+    return (
+      <div className="mx-auto max-w-xl rounded-xl border-2 border-primary/30 bg-secondary p-8 text-center shadow-md">
+        <h1 className="text-3xl italic text-primary">Catálogo de adoção</h1>
+        <p className="mt-3 text-lg">
+          Para garantir a segurança dos nossos animais, o catálogo de adoção é restrito. Faça login ou cadastre-se para conhecer os pets!
+        </p>
+        <Button className="mt-5" size="lg" onClick={() => setAuthOpen(true)}>Entrar / Cadastrar</Button>
+      </div>
+    );
+
   return (
     <div className="space-y-6">
+      <Dialog open={blocked} onOpenChange={setBlocked}>
+        <DialogContent>
+          <DialogTitle className="text-2xl italic text-primary">Complete seu perfil</DialogTitle>
+          <p>Para enviar mensagens a ONGs e Protetores, você precisa preencher seu perfil completo (Foto e Comprovante de Residência).</p>
+          <Button asChild onClick={() => setBlocked(false)}><Link to="/perfil">Completar meu perfil</Link></Button>
+        </DialogContent>
+      </Dialog>
       <h1 className="text-3xl italic text-primary">Pets para adoção</h1>
       <div className="no-scrollbar -mx-4 flex items-center gap-2 overflow-x-auto px-4">
         {([["todos", "Todos"], ["filhotes", "Filhotes"], ["gato", "Gatos"], ["cao", "Cães"]] as const).map(([k, l]) => (

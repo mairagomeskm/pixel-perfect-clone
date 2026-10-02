@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/use-auth";
 import { Search, MessageCircle, HeartHandshake, ShieldCheck, Home, Syringe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import hero from "@/assets/hero-pets.jpg";
+const hero = "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -10,12 +11,17 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Adote cães e gatos no Distrito Federal, apoie vaquinhas e ajude a encontrar pets desaparecidos." },
       { property: "og:title", content: "Carita's Pets — Adoção de animais no DF" },
       { property: "og:description", content: "Adote, doe e ajude pets desaparecidos no Distrito Federal." },
+      { property: "og:image", content: hero },
+      { name: "twitter:image", content: hero },
     ],
   }),
   component: Index,
 });
 
 function Index() {
+  const { user, setAuthOpen } = useAuth();
+  const navigate = useNavigate();
+  const seePets = () => (user ? navigate({ to: "/adocao" }) : setAuthOpen(true));
   return (
     <div className="space-y-14">
       <section className="vintage-card grid overflow-hidden md:grid-cols-2">
@@ -26,10 +32,10 @@ function Index() {
           </h1>
           <p className="text-lg">Cães e gatos resgatados por ONGs e protetores esperando um lar cheio de carinho.</p>
           <div>
-            <Button size="lg" asChild><Link to="/adocao">Ver Pets Disponíveis</Link></Button>
+            <Button size="lg" onClick={seePets}>Ver Pets Disponíveis</Button>
           </div>
         </div>
-        <img src={hero} alt="Cachorro e gato numa varanda em Brasília" width={1536} height={1024} className="h-full w-full object-cover" />
+        <img src={hero} alt="Dois cachorros correndo juntos num gramado" className="h-full w-full object-cover" />
       </section>
 
       <section>
@@ -74,16 +80,6 @@ function Index() {
         </div>
       </section>
 
-      <section className="rounded-lg bg-primary px-6 py-8 text-primary-foreground">
-        <div className="grid grid-cols-2 gap-6 text-center md:grid-cols-4">
-          {[["+500", "Pets Adotados"], ["20", "ONGs parceiras"], ["+80", "Protetores"], ["R$ 45 mil", "Arrecadados"]].map(([n, l]) => (
-            <div key={l}>
-              <p className="text-3xl font-bold italic">{n}</p>
-              <p className="text-sm opacity-90">{l}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

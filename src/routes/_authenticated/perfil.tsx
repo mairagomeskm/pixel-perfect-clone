@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { useDraft } from "@/lib/drafts";
-import { signedUrl } from "@/lib/storage";
+import { signedUrl, uploadMedia } from "@/lib/storage";
 import { isValidCPF, isValidCNPJ, lookupCep, maskCEP, maskCPF, maskPhone } from "@/lib/validators";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,7 @@ function PerfilPage() {
   const d = useDraft("draft:census", EMPTY);
   const v = d.value;
   const [file, setFile] = useState<File | null>(null);
+  const [avatar, setAvatar] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   const [cepMsg, setCepMsg] = useState<string | null>(null);
 
@@ -68,6 +69,11 @@ function PerfilPage() {
     if (type === "ong" && v.cnpj && !isValidCNPJ(v.cnpj)) return toast.error("CNPJ inválido.");
     if (type === "adotante" && !(await checkCep())) return toast.error("Verifique o CEP.");
     setBusy(true);
+    let avatar_url = profile.avatar_url;
+    if (avatar) {
+      try { avatar_url = await uploadMedia(user.id, avatar); }
+      catch { setBusy(false); return toast.error("Falha ao enviar a foto."); }
+    }
     let proof_path = profile.proof_path;
     if (file) {
       const path = `${user.id}/comprovante-${Date.now()}.${file.name.split(".").pop()}`;
@@ -77,12 +83,13 @@ function PerfilPage() {
     }
     const { name, phone, cep, address, cpf, cnpj, social_link, ...census } = v;
     const { error } = await supabase.from("profiles").update({
-      name, phone, cep, address, cpf: cpf || null, cnpj: cnpj || null, social_link: social_link || null, census, proof_path, updated_at: new Date().toISOString(),
+      name, phone, cep, address, cpf: cpf || null, cnpj: cnpj || null, social_link: social_link || null, census, proof_path, avatar_url, updated_at: new Date().toISOString(),
     }).eq("id", user.id);
     setBusy(false);
     if (error) return toast.error("Não foi possível salvar.");
     d.reset(v);
     setFile(null);
+    setAvatar(null);
     toast.success("Perfil salvo!");
     qc.invalidateQueries({ queryKey: ["profile", user.id] });
   };
@@ -105,6 +112,16 @@ function PerfilPage() {
     <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_320px]">
       <form className="vintage-card space-y-4 p-6" onSubmit={(e) => { e.preventDefault(); save(); }}>
         <h1 className="text-3xl italic text-primary">Editar Meu Perfil</h1>
+        <div className="flex items-center gap-4 rounded-lg border-2 border-dashed border-secondary bg-card p-3">
+          {profile.avatar_url ? (
+            <img src={profile.avatar_url} alt="Sua foto" className="h-16 w-16 rounded-full object-cover" />
+          ) : (
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-xs">Sem foto</div>
+          )}
+          <Field label="Foto de perfil" hint="Obrigatória para conversar com ONGs e protetores">
+            <Input type="file" accept="image/*" onChange={(e) => setAvatar(e.target.files?.[0] ?? null)} />
+          </Field>
+        </div>
         <Field label="Nome"><Input value={v.name} onChange={(e) => d.update({ name: e.target.value })} /></Field>
         <Field label="WhatsApp"><Input value={v.phone} onChange={(e) => d.update({ phone: maskPhone(e.target.value) })} /></Field>
         {profile.profile_type === "ong" ? (

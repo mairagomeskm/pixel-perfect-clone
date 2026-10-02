@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
 import {
   ArrowLeft, Menu, Home, PawPrint, HandCoins, Search, BookHeart, User, MessageCircle, Bell,
-  Shield, LifeBuoy, LogOut, Lock, ListChecks, X,
+  Shield, LifeBuoy, LogOut, Lock, ListChecks, X, Newspaper,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -26,6 +26,14 @@ export function AppShell({ children }: { children: ReactNode }) {
     setDraftKey(k ?? null);
   }, [menuOpen, pathname]);
 
+  const [fontStep, setFontStep] = useState(0);
+  useEffect(() => { setFontStep(Number(localStorage.getItem("font-step") ?? 0)); }, []);
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${100 + fontStep * 12.5}%`;
+    localStorage.setItem("font-step", String(fontStep));
+  }, [fontStep]);
+  const changeFont = (d: number) => setFontStep((s) => Math.max(-1, Math.min(3, s + d)));
+
   const draftTarget = draftKey === "draft:census" ? "/perfil" : draftKey === "draft:campaign" ? "/admin" : "/meus-pets";
 
   const items: { to: string; label: string; icon: typeof User; show?: boolean }[] = [
@@ -40,7 +48,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b-2 border-primary/30 bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b-2 border-primary/30 bg-background/80 shadow-md backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 px-3">
           {!isHome && (
             <button
@@ -55,10 +63,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             <img src={logo.url} alt="Logo Carita's Pets" className="h-12 w-12 rounded-full object-cover" />
             <span className="hidden sm:inline">Carita's Pets</span>
           </Link>
-          <nav className="ml-6 hidden gap-5 md:flex">
+          <nav className="ml-6 hidden gap-5 lg:flex">
             <NavLinks />
           </nav>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="mx-auto flex items-center gap-1 rounded-full border border-primary/30 bg-card px-1" role="group" aria-label="Tamanho do texto">
+            <button onClick={() => changeFont(-1)} aria-label="Diminuir texto" className="h-9 min-w-9 rounded-full px-2 font-bold text-primary hover:bg-accent">A-</button>
+            <button onClick={() => changeFont(1)} aria-label="Aumentar texto" className="h-9 min-w-9 rounded-full px-2 text-lg font-bold text-primary hover:bg-accent">A+</button>
+          </div>
+          <div className="flex items-center gap-2">
             {!user && (
               <Button size="sm" onClick={() => setAuthOpen(true)}>
                 Entrar / Cadastrar
@@ -91,7 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {!fullBleedChat && (
         <nav className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-primary/30 bg-background md:hidden">
-          <div className="grid grid-cols-5">
+          <div className="grid grid-cols-6">
             <NavLinks mobile />
           </div>
         </nav>
@@ -157,6 +169,7 @@ function NavLinks({ mobile }: { mobile?: boolean }) {
     { to: "/vaquinhas", label: "Vaquinhas", icon: HandCoins },
     { to: "/desaparecidos", label: "Desaparecidos", icon: Search },
     { to: "/diario", label: "Diário", icon: BookHeart },
+    { to: "/comunidade", label: "Comunidade", icon: Newspaper },
   ] as const;
   return (
     <>
