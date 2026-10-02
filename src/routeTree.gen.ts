@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AdocaoRouteImport } from './routes/adocao'
 import { Route as AjudaRouteImport } from './routes/ajuda'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ComunidadeRouteImport } from './routes/comunidade'
 import { Route as DesaparecidosRouteImport } from './routes/desaparecidos'
 import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
@@ -48,6 +49,11 @@ const AjudaRoute = AjudaRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComunidadeRoute = ComunidadeRouteImport.update({
+  id: '/comunidade',
+  path: '/comunidade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DesaparecidosRoute = DesaparecidosRouteImport.update({
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/adocao': typeof AdocaoRoute
   '/ajuda': typeof AjudaRoute
   '/auth': typeof AuthRoute
+  '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
   '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/adocao': typeof AdocaoRoute
   '/ajuda': typeof AjudaRoute
   '/auth': typeof AuthRoute
+  '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
   '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/adocao': typeof AdocaoRoute
   '/ajuda': typeof AjudaRoute
   '/auth': typeof AuthRoute
+  '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
   '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/adocao'
     | '/ajuda'
     | '/auth'
+    | '/comunidade'
     | '/desaparecidos'
     | '/diario'
     | '/privacidade'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/adocao'
     | '/ajuda'
     | '/auth'
+    | '/comunidade'
     | '/desaparecidos'
     | '/diario'
     | '/privacidade'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/adocao'
     | '/ajuda'
     | '/auth'
+    | '/comunidade'
     | '/desaparecidos'
     | '/diario'
     | '/privacidade'
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   AdocaoRoute: typeof AdocaoRoute
   AjudaRoute: typeof AjudaRoute
   AuthRoute: typeof AuthRoute
+  ComunidadeRoute: typeof ComunidadeRoute
   DesaparecidosRoute: typeof DesaparecidosRoute
   DiarioRoute: typeof DiarioRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
@@ -263,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunidade': {
+      id: '/comunidade'
+      path: '/comunidade'
+      fullPath: '/comunidade'
+      preLoaderRoute: typeof ComunidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/desaparecidos': {
@@ -372,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdocaoRoute: AdocaoRoute,
   AjudaRoute: AjudaRoute,
   AuthRoute: AuthRoute,
+  ComunidadeRoute: ComunidadeRoute,
   DesaparecidosRoute: DesaparecidosRoute,
   DiarioRoute: DiarioRoute,
   PrivacidadeRoute: PrivacidadeRoute,

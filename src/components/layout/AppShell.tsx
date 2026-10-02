@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
 import {
   ArrowLeft, Menu, Home, PawPrint, HandCoins, Search, BookHeart, User, MessageCircle, Bell,
-  Shield, LifeBuoy, LogOut, Lock, ListChecks, X,
+  Shield, LifeBuoy, LogOut, Lock, ListChecks, X, Newspaper,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -103,7 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {!fullBleedChat && (
         <nav className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-primary/30 bg-background md:hidden">
-          <div className="grid grid-cols-5">
+          <div className="grid grid-cols-6">
             <NavLinks mobile />
           </div>
         </nav>
@@ -169,6 +169,7 @@ function NavLinks({ mobile }: { mobile?: boolean }) {
     { to: "/vaquinhas", label: "Vaquinhas", icon: HandCoins },
     { to: "/desaparecidos", label: "Desaparecidos", icon: Search },
     { to: "/diario", label: "Diário", icon: BookHeart },
+    { to: "/comunidade", label: "Comunidade", icon: Newspaper },
   ] as const;
   return (
     <>
