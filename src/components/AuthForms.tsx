@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { Heart, Building2, HandHeart } from "lucide-react";
+import { Heart, Building2, HandHeart, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -15,14 +15,23 @@ type Kind = "adotante" | "ong" | "protetor";
 
 export function AuthForms() {
   return (
-    <Tabs defaultValue="entrar" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 bg-sky">
-        <TabsTrigger value="entrar">Entrar</TabsTrigger>
-        <TabsTrigger value="cadastrar">Cadastrar</TabsTrigger>
-      </TabsList>
-      <TabsContent value="entrar"><Login /></TabsContent>
-      <TabsContent value="cadastrar"><Register /></TabsContent>
-    </Tabs>
+    <div>
+      <Tabs defaultValue="entrar" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 bg-sky">
+          <TabsTrigger value="entrar">Entrar</TabsTrigger>
+          <TabsTrigger value="cadastrar">Cadastrar</TabsTrigger>
+        </TabsList>
+        <TabsContent value="entrar"><Login /></TabsContent>
+        <TabsContent value="cadastrar"><Register /></TabsContent>
+      </Tabs>
+      <div className="mt-5 flex items-start gap-3 rounded-lg border border-primary/30 bg-accent p-3 text-sm">
+        <Lock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <p>
+          <b>Privacidade Garantida:</b> Seus dados pessoais e documentos de login são criptografados, estritamente
+          confidenciais e visíveis apenas para você.
+        </p>
+      </div>
+    </div>
   );
 }
 
