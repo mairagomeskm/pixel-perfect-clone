@@ -1,16 +1,13 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
-import {
-  ArrowLeft, Menu, Home, PawPrint, HandCoins, Search, BookHeart, User, MessageCircle, Bell,
-  Shield, LifeBuoy, LogOut, Lock, ListChecks, X, Newspaper,
-} from "lucide-react";
+import { User, MessageCircle, Bell, Shield, LifeBuoy, LogOut, Lock, ListChecks } from "lucide-react";
+import { FloatingHeader, NavLinks } from "@/components/layout/FloatingHeader";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { AuthForms } from "@/components/AuthForms";
 import { DRAFT_LABELS, clearDraft } from "@/lib/drafts";
-import logo from "@/assets/logo.jpg.asset.json";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -48,44 +45,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b-2 border-primary/30 bg-background/80 shadow-md backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 px-3">
-          {!isHome && (
-            <button
-              onClick={() => router.history.back()}
-              aria-label="Voltar"
-              className="flex h-11 w-11 items-center justify-center rounded-full text-primary hover:bg-accent"
-            >
-              <ArrowLeft className="h-6 w-6" strokeWidth={1.5} />
-            </button>
-          )}
-          <Link to="/" className="flex items-center gap-2 text-2xl font-bold italic tracking-tight text-primary">
-            <img src={logo.url} alt="Logo Carita's Pets" className="h-12 w-12 rounded-full object-cover" />
-            <span className="hidden sm:inline">Carita's Pets</span>
-          </Link>
-          <nav className="ml-6 hidden gap-5 lg:flex">
-            <NavLinks />
-          </nav>
-          <div className="mx-auto flex items-center gap-1 rounded-full border border-primary/30 bg-card px-1" role="group" aria-label="Tamanho do texto">
-            <button onClick={() => changeFont(-1)} aria-label="Diminuir texto" className="h-9 min-w-9 rounded-full px-2 font-bold text-primary hover:bg-accent">A-</button>
-            <button onClick={() => changeFont(1)} aria-label="Aumentar texto" className="h-9 min-w-9 rounded-full px-2 text-lg font-bold text-primary hover:bg-accent">A+</button>
-          </div>
-          <div className="flex items-center gap-2">
-            {!user && (
-              <Button size="sm" onClick={() => setAuthOpen(true)}>
-                Entrar / Cadastrar
-              </Button>
-            )}
-            <button
-              aria-label="Abrir menu"
-              onClick={() => setMenuOpen(true)}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-primary hover:bg-accent"
-            >
-              <Menu className="h-7 w-7" />
-            </button>
-          </div>
-        </div>
-      </header>
+      <FloatingHeader
+        showBack={!isHome}
+        onBack={() => router.history.back()}
+        onMenu={() => setMenuOpen(true)}
+        showAuth={!user}
+        onAuth={() => setAuthOpen(true)}
+        onFont={changeFont}
+      />
 
       <main className={fullBleedChat ? "flex-1" : "mx-auto w-full max-w-6xl flex-1 px-4 pb-28 pt-6 md:pb-12"}>
         {children}
@@ -103,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {!fullBleedChat && (
         <nav className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-primary/30 bg-background md:hidden">
-          <div className="grid grid-cols-6">
+          <div className="grid grid-cols-5">
             <NavLinks mobile />
           </div>
         </nav>
@@ -162,34 +129,3 @@ export function AppShell({ children }: { children: ReactNode }) {
   );
 }
 
-function NavLinks({ mobile }: { mobile?: boolean }) {
-  const links = [
-    { to: "/", label: "Início", icon: Home },
-    { to: "/adocao", label: "Adoção", icon: PawPrint },
-    { to: "/vaquinhas", label: "Vaquinhas", icon: HandCoins },
-    { to: "/desaparecidos", label: "Desaparecidos", icon: Search },
-    { to: "/diario", label: "Diário", icon: BookHeart },
-    { to: "/comunidade", label: "Comunidade", icon: Newspaper },
-  ] as const;
-  return (
-    <>
-      {links.map((l) => (
-        <Link
-          key={l.to}
-          to={l.to}
-          activeOptions={{ exact: l.to === "/" }}
-          className={
-            mobile
-              ? "flex flex-col items-center gap-0.5 py-2 text-[11px] text-muted-foreground data-[status=active]:text-primary data-[status=active]:font-bold"
-              : "text-muted-foreground hover:text-primary data-[status=active]:font-bold data-[status=active]:text-primary"
-          }
-        >
-          {mobile && <l.icon className="h-5 w-5" />}
-          {l.label}
-        </Link>
-      ))}
-    </>
-  );
-}
-
-export { X };
