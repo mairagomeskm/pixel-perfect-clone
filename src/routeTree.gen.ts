@@ -16,7 +16,6 @@ import { Route as AjudaRouteImport } from './routes/ajuda'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ComunidadeRouteImport } from './routes/comunidade'
 import { Route as DesaparecidosRouteImport } from './routes/desaparecidos'
-import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as VaquinhasRouteImport } from './routes/vaquinhas'
@@ -59,11 +58,6 @@ const ComunidadeRoute = ComunidadeRouteImport.update({
 const DesaparecidosRoute = DesaparecidosRouteImport.update({
   id: '/desaparecidos',
   path: '/desaparecidos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiarioRoute = DiarioRouteImport.update({
-  id: '/diario',
-  path: '/diario',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
@@ -120,7 +114,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
-  '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
@@ -138,7 +131,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
-  '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
@@ -158,7 +150,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/comunidade': typeof ComunidadeRoute
   '/desaparecidos': typeof DesaparecidosRoute
-  '/diario': typeof DiarioRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vaquinhas': typeof VaquinhasRoute
@@ -178,7 +169,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comunidade'
     | '/desaparecidos'
-    | '/diario'
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
@@ -196,7 +186,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comunidade'
     | '/desaparecidos'
-    | '/diario'
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
@@ -215,7 +204,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comunidade'
     | '/desaparecidos'
-    | '/diario'
     | '/privacidade'
     | '/reset-password'
     | '/vaquinhas'
@@ -235,7 +223,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ComunidadeRoute: typeof ComunidadeRoute
   DesaparecidosRoute: typeof DesaparecidosRoute
-  DiarioRoute: typeof DiarioRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VaquinhasRoute: typeof VaquinhasRoute
@@ -290,13 +277,6 @@ declare module '@tanstack/react-router' {
       path: '/desaparecidos'
       fullPath: '/desaparecidos'
       preLoaderRoute: typeof DesaparecidosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/diario': {
-      id: '/diario'
-      path: '/diario'
-      fullPath: '/diario'
-      preLoaderRoute: typeof DiarioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidade': {
@@ -394,7 +374,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ComunidadeRoute: ComunidadeRoute,
   DesaparecidosRoute: DesaparecidosRoute,
-  DiarioRoute: DiarioRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VaquinhasRoute: VaquinhasRoute,

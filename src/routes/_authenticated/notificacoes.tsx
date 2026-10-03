@@ -32,7 +32,7 @@ function NotifPage() {
             {n.body && <p>{n.body}</p>}
             <div className="mt-1 flex justify-between text-xs text-muted-foreground">
               <span>{new Date(n.created_at).toLocaleString("pt-BR")}</span>
-              {n.link === "/diario" && <Link to="/diario" className="underline">ver</Link>}
+              {n.link === "/diario" && <Link to="/comunidade" className="underline">ver</Link>}
             </div>
           </li>
         ))}
