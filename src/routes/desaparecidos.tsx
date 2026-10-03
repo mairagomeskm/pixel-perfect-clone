@@ -35,7 +35,7 @@ function DesaparecidosPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl italic text-primary">Desaparecidos</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Desaparecidos</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {(data ?? []).map((m) => (
           <article key={m.id} className="wanted rounded-lg p-4 text-center">

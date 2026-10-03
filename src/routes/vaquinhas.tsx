@@ -44,7 +44,7 @@ function VaquinhasPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl italic text-primary">Vaquinhas</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Vaquinhas</h1>
       <div className="grid gap-5 md:grid-cols-2">
         {(data ?? []).map((c) => {
           const pct = c.goal > 0 ? Math.min(100, (Number(c.raised) / Number(c.goal)) * 100) : 0;

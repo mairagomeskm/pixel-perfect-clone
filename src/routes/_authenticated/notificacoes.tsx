@@ -21,7 +21,7 @@ function NotifPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl italic text-primary">Notificações</h1>
+        <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Notificações</h1>
         <Button variant="outline" size="sm" onClick={markAll}>Marcar todas como lidas</Button>
       </div>
       {data.length === 0 && <p className="vintage-card p-6 italic">Nada por aqui ainda.</p>}
