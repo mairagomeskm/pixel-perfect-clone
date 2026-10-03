@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { FilterPill } from "@/components/FilterPill";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
@@ -81,13 +82,7 @@ function AdocaoPage() {
       <h1 className="text-3xl italic text-primary">Pets para adoção</h1>
       <div className="no-scrollbar -mx-4 flex items-center gap-2 overflow-x-auto px-4">
         {([["todos", "Todos"], ["filhotes", "Filhotes"], ["gato", "Gatos"], ["cao", "Cães"]] as const).map(([k, l]) => (
-          <button
-            key={k}
-            onClick={() => setFilter(k)}
-            className={`shrink-0 rounded-full border border-primary/40 px-4 py-1.5 ${filter === k ? "bg-primary text-primary-foreground" : "bg-accent"}`}
-          >
-            {l}
-          </button>
+          <FilterPill key={k} active={filter === k} onClick={() => setFilter(k)}>{l}</FilterPill>
         ))}
         <select
           value={region}
