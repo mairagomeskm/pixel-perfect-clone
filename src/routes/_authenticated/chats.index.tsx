@@ -22,7 +22,7 @@ function ChatsPage() {
   });
   return (
     <div className="mx-auto max-w-2xl space-y-4">
-      <h1 className="text-3xl italic text-primary">Meus Chats</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Meus Chats</h1>
       {data.length === 0 && <p className="vintage-card p-6 italic">Nenhuma conversa ainda. Clique em “Tenho Interesse” em um pet!</p>}
       <ul className="vintage-card divide-y">
         {data.map((c) => (

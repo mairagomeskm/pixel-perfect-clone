@@ -62,7 +62,7 @@ function AdocaoPage() {
   if (!user)
     return (
       <div className="mx-auto max-w-xl rounded-xl border-2 border-primary/30 bg-secondary p-8 text-center shadow-md">
-        <h1 className="text-3xl italic text-primary">Catálogo de adoção</h1>
+        <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Catálogo de adoção</h1>
         <p className="mt-3 text-lg">
           Para garantir a segurança dos nossos animais, o catálogo de adoção é restrito. Faça login ou cadastre-se para conhecer os pets!
         </p>
@@ -79,7 +79,7 @@ function AdocaoPage() {
           <Button asChild onClick={() => setBlocked(false)}><Link to="/perfil">Completar meu perfil</Link></Button>
         </DialogContent>
       </Dialog>
-      <h1 className="text-3xl italic text-primary">Pets para adoção</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Pets para adoção</h1>
       <div className="no-scrollbar -mx-4 flex items-center gap-2 overflow-x-auto px-4">
         {([["todos", "Todos"], ["filhotes", "Filhotes"], ["gato", "Gatos"], ["cao", "Cães"]] as const).map(([k, l]) => (
           <FilterPill key={k} active={filter === k} onClick={() => setFilter(k)}>{l}</FilterPill>

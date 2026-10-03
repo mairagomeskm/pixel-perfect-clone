@@ -31,7 +31,7 @@ function ResetPage() {
         navigate({ to: "/" });
       }}
     >
-      <h1 className="text-2xl italic text-primary">Defina sua nova senha</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Defina sua nova senha</h1>
       <Input type="password" minLength={6} required value={pw} onChange={(e) => setPw(e.target.value)} />
       <Button type="submit" className="w-full">Salvar</Button>
     </form>

@@ -22,7 +22,7 @@ function AjudaPage() {
   const navigate = useNavigate();
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="text-3xl italic text-primary">Central de Ajuda</h1>
+      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Central de Ajuda</h1>
       <div className="vintage-card space-y-3 bg-accent p-6">
         <h2 className="text-xl font-bold">Suporte com a equipe</h2>
         <p>Converse diretamente com as criadoras do Carita's Pets.</p>

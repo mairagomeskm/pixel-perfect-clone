@@ -119,7 +119,7 @@ function ComunidadePage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl italic text-primary">Comunidade Carita's</h1>
+        <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Comunidade Carita's</h1>
         <p className="text-muted-foreground">Um mural de finais felizes, parceiros e cuidados.</p>
       </header>
 
