@@ -19,7 +19,7 @@ function AuthPage() {
   if (user) return <Navigate to="/" />;
   return (
     <div className="vintage-card mx-auto max-w-md p-6">
-      <h1 className="mb-4 mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Entre para continuar</h1>
+      <h1 className="mb-4 mt-6 rounded-lg bg-blush px-4 py-2 font-bold text-3xl text-primary">Entre para continuar</h1>
       <AuthForms />
     </div>
   );

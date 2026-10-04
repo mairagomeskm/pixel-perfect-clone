@@ -111,7 +111,7 @@ function PerfilPage() {
   return (
     <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr_320px]">
       <form className="vintage-card space-y-4 p-6" onSubmit={(e) => { e.preventDefault(); save(); }}>
-        <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Editar Meu Perfil</h1>
+        <h1 className="mt-6 rounded-lg bg-blush px-4 py-2 font-bold text-3xl text-primary">Editar Meu Perfil</h1>
         <div className="flex items-center gap-4 rounded-lg border-2 border-dashed border-secondary bg-card p-3">
           {profile.avatar_url ? (
             <img src={profile.avatar_url} alt="Sua foto" className="h-16 w-16 rounded-full object-cover" />

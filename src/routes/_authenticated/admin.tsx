@@ -24,7 +24,7 @@ function AdminPage() {
   if (!isAdmin) return <p className="vintage-card p-6 italic">Esta área é exclusiva da administração.</p>;
   return (
     <div className="space-y-4">
-      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Administração</h1>
+      <h1 className="mt-6 rounded-lg bg-blush px-4 py-2 font-bold text-3xl text-primary">Administração</h1>
       <Tabs defaultValue="pets">
         <TabsList className="no-scrollbar flex h-auto w-full justify-start overflow-x-auto bg-accent">
           <TabsTrigger value="pets">Pets</TabsTrigger>
