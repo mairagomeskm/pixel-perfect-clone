@@ -19,7 +19,7 @@ function MeusPets() {
   });
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <h1 className="mt-6 rounded-lg bg-white px-4 py-2 font-bold text-3xl text-primary">Gerenciar Meus Pets</h1>
+      <h1 className="mt-6 rounded-lg bg-blush px-4 py-2 font-bold text-3xl text-primary">Gerenciar Meus Pets</h1>
       <PetForm onSaved={() => refetch()} />
       <PetList pets={data} onChange={() => refetch()} />
     </div>
